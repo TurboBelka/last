@@ -9,12 +9,12 @@ from datetime import timedelta
 
 
 def country_by_ip(request):
-    # x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    # if x_forwarded_for:
-    #     ip = x_forwarded_for.split(',')[0].strip()
-    # else:
-    #     ip = request.META.get('REMOTE_ADDR')
-    ip = '80.254.2.190'
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0].strip()
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    # ip = '80.254.2.190'
     path = '%s/%s' % (settings.BASE_DIR, 'GeoLite2-Country.mmdb')
     reader = database.Reader(path)
     try:

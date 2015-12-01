@@ -24,3 +24,8 @@ th, td{
 .body{
     margin-bottom: 40px;
 }
+
+.inline{
+    display: inline;
+    width: 30%;
+}

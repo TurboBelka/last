@@ -1,5 +1,6 @@
 from django.conf import settings
-from django.http import HttpResponse
+from django.core.urlresolvers import reverse_lazy
+from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from django.views import generic
 from geoip2 import database
@@ -36,3 +37,10 @@ class GeoInfoView(generic.ListView):
     def get_queryset(self):
         date = timezone.now()-timedelta(days=3)
         return self.model.objects.filter(date__gte=date)
+
+
+def delete_data(request):
+    if request.method == 'POST':
+        days = timezone.now()-timedelta(days=int(request.POST.get('days', 3)))
+        GeoInfo.objects.filter(date__lte=days).delete()
+    return HttpResponseRedirect(reverse_lazy('geo_info:geo_info'))

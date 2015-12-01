@@ -1,0 +1,26 @@
+html{
+    position: relative;
+    min-height: 100%;
+
+}
+
+th, td{
+    text-align: center;
+}
+
+.panel-footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    height: 40px;
+    border-top: 1px solid #4285F4;
+}
+
+.navbar{
+    border-bottom: 1px solid #4285F4;
+}
+
+.body{
+    margin-bottom: 40px;
+}

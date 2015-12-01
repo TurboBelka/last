@@ -1,0 +1,1 @@
+web: gunicorn take_geo.wsgi --log-file -

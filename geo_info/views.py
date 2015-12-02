@@ -9,6 +9,7 @@ from datetime import timedelta
 
 
 def country_by_ip(request):
+
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[0].strip()
@@ -20,9 +21,10 @@ def country_by_ip(request):
     try:
         country = reader.country(ip).country.name
         headers = {k:v for k,v in request.META.iteritems() if k.startswith('HTTP')}
+        user_agent = headers.get('HTTP_USER_AGENT')
         date_request = timezone.now()
 
-        GeoInfo.objects.create(ip=ip, country=country,
+        GeoInfo.objects.create(ip=ip, country=country, user_agent=user_agent,
                                headers=headers, date=date_request)
     except:
         pass
@@ -41,6 +43,6 @@ class GeoInfoView(generic.ListView):
 
 def delete_data(request):
     if request.method == 'POST':
-        days = timezone.now()-timedelta(days=int(request.POST.get('days', 3)))
+        days = timezone.now()-timedelta(days=int(request.POST.get('days')))
         GeoInfo.objects.filter(date__lte=days).delete()
     return HttpResponseRedirect(reverse_lazy('geo_info:geo_info'))

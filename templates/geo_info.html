@@ -24,6 +24,7 @@
                     <tr>
                         <th>IP</th>
                         <th>Country</th>
+                        <th>User Agent</th>
                         <th>Headers</th>
                         <th>Date</th>
                         <th>Time</th>
@@ -34,6 +35,7 @@
                         <tr>
                             <td>{{ item.ip }}</td>
                             <td>{{ item.country }}</td>
+                            <td>{{ item.user_agent }}</td>
                             <td>{{ item.headers }}</td>
                             <td>{{ item.date|date:"d/m/y" }}</td>
                             <td>{{ item.date.time }}</td>
@@ -62,8 +64,7 @@
                     <div class="modal-body">
                         {% csrf_token %}
                         <label class="inline">Days:</label>
-                        <input name="days" class="inline form-control" type="number" id="days" min="0"/>
-
+                        <input name="days" class="inline form-control" type="number" value="0" id="days" min="0"/>
                     </div>
                     <div class="modal-footer">
                         <input type="submit" class="btn btn-default" value="Delete" />

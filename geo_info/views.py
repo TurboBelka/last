@@ -43,6 +43,8 @@ class GeoInfoView(generic.ListView):
 
 def delete_data(request):
     if request.method == 'POST':
-        days = timezone.now()-timedelta(days=int(request.POST.get('days')))
-        GeoInfo.objects.filter(date__lte=days).delete()
+        count_days = request.POST.get('days')
+        if count_days:
+            days = timezone.now()-timedelta(days=int(count_days))
+            GeoInfo.objects.filter(date__lte=days).delete()
     return HttpResponseRedirect(reverse_lazy('geo_info:geo_info'))
